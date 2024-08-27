@@ -1,0 +1,103 @@
+# Proyecto de Gestión de Eventos y Ventas
+
+## Descripción
+
+Este proyecto es una aplicación web para gestionar eventos y ventas de entradas. Los administradores pueden crear, actualizar y eliminar eventos, así como ver una lista de todos los eventos y ventas. Los usuarios pueden comprar entradas para los eventos disponibles.
+
+## Estructura del Proyecto
+
+El proyecto está dividido en varias secciones clave:
+
+- **`/src`**: Contiene archivos PHP para la lógica de backend, como conexión a la base de datos (`db.php`).
+- **`/templates`**: Incluye plantillas comunes como la barra de navegación.
+- **`/js`**: Contiene archivos JavaScript para la validación de formularios.
+- **`/css`**: Contiene archivos CSS para la personalización del estilo.
+
+## Instalación
+
+1. **Clona el repositorio**:
+
+    ```bash
+    git clone https://github.com/tu_usuario/tu_repositorio.git
+    ```
+
+2. **Configura el servidor web**:
+    - Usa XAMPP, WAMP, o cualquier otro servidor local compatible con PHP y MySQL.
+
+3. **Configura la base de datos**:
+    - Crea una base de datos llamada `ticket`.
+    - Ejecuta los siguientes comandos SQL para crear las tablas `eventos` y `ventas` y agregar datos de prueba:
+
+    ```sql
+    -- Crear tabla eventos
+    CREATE TABLE eventos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR(255) NOT NULL,
+        fecha_hora DATETIME NOT NULL,
+        lugar VARCHAR(255) NOT NULL,
+        descripcion TEXT,
+        precio DECIMAL(10, 2) NOT NULL
+    );
+
+    -- Insertar datos de prueba en eventos
+    INSERT INTO eventos (id, nombre, fecha_hora, lugar, descripcion, precio) VALUES
+    (1, 'Concierto de Rock', '2024-09-15 20:00:00', 'Auditorio Municipal', 'Concierto de bandas de rock locales.', 25.00),
+    ...
+    (20, 'Gira de Ciclismo', '2024-12-05 08:00:00', 'Punto de Inicio', 'Gira de ciclismo con varias etapas.', 25.00);
+
+    -- Crear tabla ventas
+    CREATE TABLE ventas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        evento_id INT NOT NULL,
+        fecha_venta DATETIME NOT NULL,
+        nombre_comprador VARCHAR(255) NOT NULL,
+        correo_comprador VARCHAR(255) NOT NULL,
+        cantidad_tickets INT NOT NULL,
+        FOREIGN KEY (evento_id) REFERENCES eventos(id)
+    );
+
+    -- Insertar datos de prueba en ventas
+    INSERT INTO ventas (id, evento_id, fecha_venta, nombre_comprador, correo_comprador, cantidad_tickets) VALUES
+    (1, 1, '2024-09-01 14:30:00', 'Juan Pérez', 'juan.perez@example.com', 2),
+    ...
+    (20, 20, '2024-09-20 19:00:00', 'Elena Paredes', 'elena.paredes@example.com', 5);
+    ```
+
+4. **Configura el archivo de conexión**:
+    - Edita `src/db.php` para incluir tus credenciales de base de datos.
+
+5. **Accede a la aplicación**:
+    - Abre tu navegador y navega a `http://localhost/tu_repositorio`.
+
+## Uso
+
+### Administrador
+
+- **Inicio de sesión**: Accede a `login.php` para iniciar sesión como administrador.
+- **Administrar Eventos**: Ve a `admin_eventos.php` para ver, crear, actualizar y eliminar eventos.
+- **Ventas**: Consulta las ventas realizadas en la sección correspondiente.
+
+### Usuario
+
+- **Ver Eventos**: Consulta la lista de eventos disponibles.
+- **Comprar Entradas**: Selecciona un evento y compra entradas.
+
+## Contribuciones
+
+Si deseas contribuir al proyecto, por favor sigue estos pasos:
+
+1. Haz un fork del repositorio.
+2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
+3. Realiza tus cambios y asegúrate de que todo funcione correctamente.
+4. Haz un commit de tus cambios (`git commit -am 'Agrega nueva funcionalidad'`).
+5. Envía tu rama al repositorio remoto (`git push origin feature/nueva-funcionalidad`).
+6. Crea una Pull Request.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+## Contacto
+
+Para cualquier pregunta o comentario, por favor contacta a [tu_email@example.com](mailto:tu_email@example.com).
+
